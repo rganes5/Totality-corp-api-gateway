@@ -1,0 +1,90 @@
+definitions:
+  models.RequestUserIDList:
+    properties:
+      userId:
+        items:
+          type: integer
+        type: array
+    type: object
+  models.Response:
+    properties:
+      response:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: MICROSERVICES BUILD USING GOLANG following Clean-Code Architecture.
+  title: Totality-Crew
+  version: "2.0"
+paths:
+  /user/get/byid/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: LISTING USER BASED ON ID
+      operationId: LIST-USER
+      parameters:
+      - description: Enter the user id
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: API FOR LISTING USER BASED ON ID
+      tags:
+      - USER
+  /user/get/bylist:
+    get:
+      consumes:
+      - application/json
+      description: UPDATING USER DETAILS WITH ID
+      operationId: UPDATE-USER
+      parameters:
+      - description: Enter the user id's
+        in: body
+        name: user_details
+        required: true
+        schema:
+          $ref: '#/definitions/models.RequestUserIDList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: API FOR UPDATING USER
+      tags:
+      - USER
+swagger: "2.0"
